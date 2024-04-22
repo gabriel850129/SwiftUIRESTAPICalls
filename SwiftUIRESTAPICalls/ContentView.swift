@@ -8,17 +8,51 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(UserController.self) private var userControler
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        
+//        NavigationSplitView {
+//            ForEach(userControler.users)
+//
+//        } detail: {
+//            Text("Select User")
+//        }
+        
+        
+        
+        
+        ScrollView {
+                        Text("All users")
+                        .font(.title).bold()
+                }
+                .onAppear {
+                        userControler.getUsers()
+                }
+        
+        VStack(alignment: .leading) {
+            ForEach(userControler.users) { user in
+                HStack(alignment:.top) {
+                    Text("\(user.id)")
+
+                    VStack(alignment: .leading) {
+                        Text(user.name)
+                            .bold()
+
+                        Text(user.email.lowercased())
+
+                        Text(user.phone)
+                    }
+                }
+                .frame(width: 300, alignment: .leading)
+                .padding()
+                .background(Color(#colorLiteral(red: 0.6667672396, green: 0.7527905703, blue: 1, alpha: 0.2662717301)))
+                .cornerRadius(20)
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environment(UserController())
 }

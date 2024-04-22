@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct SwiftUIRESTAPICallsApp: App {
+    @State private var userControler=UserController()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(userControler)
         }
     }
 }
